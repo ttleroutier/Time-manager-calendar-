@@ -1,0 +1,36 @@
+/* ═══ BLOC 5 — LISTE DES MISSIONS
+   5.1 titre de section · 5.2 carte · 5.3 métadonnées et compte à rebours
+   5.4 actions · 5.5 état vide ═══ */
+
+/* 5.1 */
+.lh{font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin:10px 0 4px;padding-bottom:3px;border-bottom:1px solid var(--bd)}
+
+/* 5.2 — .dim = masquée, .overdue = deadline dépassée */
+/* NB : "var(--ac)33" est invalide et ignoré (hérité du fichier d'origine). */
+.tk{background:var(--s1);border:1px solid var(--bd);border-radius:var(--ra);margin-bottom:3px;box-shadow:var(--sh);transition:.15s}
+.tk:hover{border-color:var(--ac)33}
+.tk.dim{opacity:.3}
+.tk.overdue{background:#ef444408;border-color:#ef444422}
+.tk-row{display:flex;align-items:center;padding:7px 10px;gap:8px}
+.tk-bar{width:3px;height:24px;border-radius:1px;flex-shrink:0}
+.tk-info{flex:1;min-width:0}
+.tk-name{font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tk-sub{font-size:10px;color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* 5.3 */
+.tk-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.tk-tag{font-size:8px;padding:1px 5px;border-radius:3px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.tk-dl{font-size:10px;color:var(--t2);text-align:right;font-variant-numeric:tabular-nums;min-width:70px}
+.tk-cd{text-align:right;min-width:50px}
+.tk-cd .big{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
+.tk-cd .sm{font-size:8px;color:var(--t2)}
+
+/* 5.4 */
+.tk-acts{display:flex;gap:2px;padding:0 10px 5px;justify-content:flex-end}
+.tk-acts button{background:none;border:1px solid var(--bd);color:var(--t2);padding:2px 6px;border-radius:3px;cursor:pointer;font-size:9px;font-weight:600;transition:.15s}
+.tk-acts button:hover{background:var(--s2);color:var(--tx)}
+.tk-acts .esc{border-color:var(--or);color:var(--or)}
+.tk-acts .esc:hover{background:#f59e0b12}
+
+/* 5.5 */
+.empty{text-align:center;padding:40px;color:var(--t3);font-size:12px}
