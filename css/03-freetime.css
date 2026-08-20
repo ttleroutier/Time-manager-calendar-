@@ -1,0 +1,20 @@
+/* ═══ BLOC 3 — PLAGES DE TEMPS LIBRE
+   3.1 panneau repliable · 3.2 saisie par jour
+   Le panneau n'apparaît que sur l'onglet Calendrier (voir renderFt). ═══ */
+
+/* 3.1 */
+.ft-wrap{background:var(--s1);border:1px solid var(--bd);border-radius:var(--ra);margin-bottom:10px;box-shadow:var(--sh);overflow:hidden}
+.ft-head{padding:6px 12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+.ft-head span{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.8px}
+.ft-toggle{font-size:10px;color:var(--t2)}
+.ft-body{display:none;padding:8px 12px;border-top:1px solid var(--bd)}
+.ft-body.open{display:block}
+
+/* 3.2 — 7 colonnes : une par jour, chacune avec une heure de début et de fin */
+.ft-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.ft-d{text-align:center}
+.ft-d .dl{font-size:8px;font-weight:700;color:var(--t2);margin-bottom:2px}
+.ft-d input{width:100%;padding:2px;border:1px solid var(--bd);border-radius:3px;background:var(--bg);color:var(--ac);font-size:10px;font-weight:600;text-align:center;font-family:inherit}
+.ft-d input:focus{outline:none;border-color:var(--ac)}
+.ft-row{display:flex;gap:4px;align-items:center}
+.ft-lbl{font-size:9px;color:var(--t3);min-width:30px}
