@@ -1,0 +1,51 @@
+/* ═══ BLOC 4 — CALENDRIER
+   4.1 en-tête et navigation · 4.2 grille horaire (semaine/jour)
+   4.3 événements et repères · 4.4 grille mensuelle
+   Hauteur d'une heure = 48px, valeur dupliquée dans js/01-config.js (HH). ═══ */
+
+/* 4.1 */
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cal-head h2{font-size:14px;font-weight:700}
+.cal-nav{display:flex;gap:3px;align-items:center}
+.cal-nav button,.view-btns button{background:var(--s1);border:1px solid var(--bd);color:var(--t2);padding:3px 8px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:600;transition:.15s}
+.cal-nav button:hover,.view-btns button:hover{background:var(--s2);color:var(--tx)}
+.view-btns{display:flex;gap:2px}
+.view-btns button.vactive{background:var(--ac);color:#fff;border-color:var(--ac)}
+
+/* 4.2 — colonne de gauche (48px) pour les heures, puis 1 colonne par jour */
+.sv{border:1px solid var(--bd);border-radius:var(--ra);overflow:hidden;box-shadow:var(--sh);background:var(--s1)}
+.sv-head{display:flex;border-bottom:1px solid var(--bd);background:var(--s2)}
+.sv-tc{width:48px;flex-shrink:0;padding:6px 4px;text-align:center;font-size:9px;font-weight:600;color:var(--t3)}
+.sv-dh{flex:1;padding:6px 4px;text-align:center;border-left:1px solid var(--bd);cursor:pointer;user-select:none}
+.sv-dh .dn{font-size:9px;font-weight:700;color:var(--t2);text-transform:uppercase}
+.sv-dh .dd{font-size:14px;font-weight:800}
+.sv-dh.today .dd{color:var(--ac)}
+.sv-scroll{overflow-y:auto;position:relative}
+.sv-body{display:flex;position:relative}
+.sv-times{width:48px;flex-shrink:0}
+.sv-tl{height:48px;padding:2px 4px;font-size:9px;font-weight:600;color:var(--t3);text-align:right;font-variant-numeric:tabular-nums}
+.sv-col{flex:1;position:relative;border-left:1px solid var(--bd)}
+/* NB : "var(--bd)08" est une valeur invalide, ignorée par le navigateur.
+   Héritée du fichier d'origine, conservée pour ne rien changer au rendu. */
+.sv-slot{height:48px;border-bottom:1px solid var(--bd)08}
+.sv-slot:nth-child(even){border-bottom-color:var(--bd)}
+
+/* 4.3 — ligne "maintenant", bandeau de temps libre, blocs d'événements */
+.sv-now{position:absolute;left:48px;right:0;height:2px;background:var(--rd);z-index:5;pointer-events:none}
+.sv-now::before{content:'';position:absolute;left:-4px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--rd)}
+.sv-free{position:absolute;left:0;right:0;background:var(--ac);opacity:.05;pointer-events:none;z-index:0;border-radius:2px}
+.sv-ev{position:absolute;left:2px;right:2px;border-radius:3px;padding:2px 5px;font-size:9px;font-weight:600;cursor:pointer;overflow:hidden;z-index:2;border-left:3px solid;transition:opacity .15s;line-height:1.3}
+.sv-ev:hover{opacity:.85}
+.sv-ev .ev-time{font-size:8px;opacity:.7;font-weight:500}
+.sv-ev .ev-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 4.4 — vue mois : 7 colonnes, 3 événements visibles par case puis "+N" */
+.mo-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--bd);border-radius:var(--ra);overflow:hidden;box-shadow:var(--sh)}
+.mo-dh{background:var(--s2);padding:5px;text-align:center;font-weight:700;font-size:9px;color:var(--t2);text-transform:uppercase;letter-spacing:.5px}
+.mo-cell{background:var(--s1);min-height:70px;padding:3px;cursor:pointer;user-select:none}
+.mo-cell.today{background:var(--s2)}
+.mo-cell.other{opacity:.3}
+.mo-dn{font-size:10px;font-weight:700;color:var(--t2);padding:1px 3px;margin-bottom:2px}
+.mo-cell.today .mo-dn{color:var(--ac)}
+.mo-ev{font-size:8px;padding:1px 3px;border-radius:2px;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;border-left:2px solid;cursor:pointer}
+.mo-more{font-size:7px;color:var(--t3);padding-left:3px}
