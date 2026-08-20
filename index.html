@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Manager (Calendar)</title>
+
+<!-- ═══ BLOCS 1→7 — CSS (l'ordre définit la cascade) ═══ -->
+<link rel="stylesheet" href="css/01-theme.css">
+<link rel="stylesheet" href="css/02-shell.css">
+<link rel="stylesheet" href="css/03-freetime.css">
+<link rel="stylesheet" href="css/04-calendar.css">
+<link rel="stylesheet" href="css/05-tasks.css">
+<link rel="stylesheet" href="css/06-forms.css">
+<link rel="stylesheet" href="css/07-modals.css">
+</head>
+<body>
+
+<!-- ═══════ BLOC 8.1 — EN-TÊTE ═══════ -->
+<header>
+<div class="logo"><div class="logo-i">T</div><span>Time</span>Manager</div>
+<div class="hc">
+<div id="clock"></div>
+<button class="hbtn" onclick="document.getElementById('importFile').click()">Importer .ics</button>
+<button class="hbtn" onclick="toggleTheme()" id="themeBtn">Mode Jour</button>
+<input type="file" id="importFile" accept=".ics" style="display:none" onchange="handleImport(event)">
+</div>
+</header>
+
+<!-- ═══════ BLOC 8.2 — ONGLETS (calendrier + filtres de priorité) ═══════ -->
+<div class="tabs">
+<div class="tab active" data-tab="calendar" onclick="switchTab('calendar')"><span class="dot" style="background:var(--ac)"></span>Calendrier</div>
+<div class="tab" data-tab="all" onclick="switchTab('all')"><span class="dot" style="background:var(--t2)"></span>Toutes<span class="bg" id="b-all">0</span></div>
+<div class="tab" data-tab="green" onclick="switchTab('green')"><span class="dot" style="background:var(--gn)"></span>A faire<span class="bg" id="b-green">0</span></div>
+<div class="tab" data-tab="orange" onclick="switchTab('orange')"><span class="dot" style="background:var(--or)"></span>Priorite<span class="bg" id="b-orange">0</span></div>
+<div class="tab" data-tab="red" onclick="switchTab('red')"><span class="dot" style="background:var(--rd)"></span>Urgent<span class="bg" id="b-red">0</span></div>
+<div class="tab" data-tab="black" onclick="switchTab('black')"><span class="dot" style="background:var(--bk)"></span>Critique<span class="bg" id="b-black">0</span></div>
+</div>
+
+<!-- ═══════ BLOC 8.3 — CONTENEURS (remplis par le JS) ═══════ -->
+<div class="main">
+<div class="stats" id="stats"></div>
+<div id="ftWrap"></div>
+<div id="calContainer"></div>
+<div id="taskList"></div>
+</div>
+
+<!-- ═══════ BLOC 8.4 — PANNEAU D'AJOUT ═══════ -->
+<div class="add-bar">
+<div class="add-toggle"><button onclick="toggleAdd()">+ NOUVELLE MISSION</button></div>
+<div class="add-panel" id="addPanel">
+<div class="add-inner">
+<div class="add-row">
+<input type="text" id="iTitle" placeholder="Titre" style="flex:2">
+<select id="iCat"><option value="none">--</option><option value="todo">To Do</option><option value="exam">Exam</option><option value="devoir">Devoir</option></select>
+<input type="datetime-local" id="iDL" style="flex:1.5">
+</div>
+<div class="add-row">
+<textarea id="iDesc" placeholder="Description" style="flex:2"></textarea>
+<select id="iRecur"><option value="none">Unique</option><option value="daily">Quotidien</option><option value="weekly">Hebdo</option><option value="monthly">Mensuel</option></select>
+<input type="date" id="iRecurEnd" title="Fin recurrence" style="flex:1">
+</div>
+<div class="add-foot">
+<div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+<span style="font-size:10px;color:var(--t2)">Couleur:</span>
+<div class="cp" id="cpAdd"></div>
+</div>
+<div class="add-btns">
+<button class="btn btn-o" onclick="exportAllICS()">Exporter tout</button>
+<button class="btn btn-p" onclick="addTask()">Ajouter</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ═══════ BLOC 8.5a — MODALE D'ÉDITION ═══════ -->
+<div class="mbg" id="editModal">
+<div class="modal">
+<h2>Modifier</h2>
+<div class="mg">
+<input type="text" id="eTitle">
+<div style="display:flex;gap:4px">
+<select id="eCat" style="flex:1"><option value="none">--</option><option value="todo">To Do</option><option value="exam">Exam</option><option value="devoir">Devoir</option></select>
+<input type="datetime-local" id="eDL" style="flex:2">
+</div>
+<textarea id="eDesc"></textarea>
+<div style="display:flex;gap:4px">
+<select id="eRecur" style="flex:1"><option value="none">Unique</option><option value="daily">Quotidien</option><option value="weekly">Hebdo</option><option value="monthly">Mensuel</option></select>
+<input type="date" id="eRecurEnd" style="flex:1" title="Fin recurrence">
+</div>
+<div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:var(--t2)">Couleur:</span><div class="cp" id="cpEdit"></div></div>
+</div>
+<input type="hidden" id="eIdx">
+<div class="mf">
+<button class="btn btn-o" onclick="closeEdit()">Annuler</button>
+<button class="btn btn-p" onclick="saveEdit()">Sauvegarder</button>
+</div>
+</div>
+</div>
+
+<!-- ═══════ BLOC 8.5b — MODALE DE DÉTAIL ═══════ -->
+<div class="mbg" id="detModal">
+<div class="modal">
+<div class="det-title" id="detTitle"></div>
+<div id="detBody"></div>
+<div class="det-actions" id="detActions"></div>
+<div class="mf"><button class="btn btn-o" onclick="closeDet()">Fermer</button></div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     BLOCS 9→20 — JAVASCRIPT
+     ⚠ ORDRE STRICT : portée globale partagée, pas de defer/async
+     ═══════════════════════════════════════════════════════════ -->
+<script src="js/01-config.js"></script>
+<script src="js/02-utils.js"></script>
+<script src="js/03-state.js"></script>
+<script src="js/04-priority.js"></script>
+<script src="js/05-events.js"></script>
+<script src="js/06-render-shell.js"></script>
+<script src="js/07-calendar.js"></script>
+<script src="js/08-tasks.js"></script>
+<script src="js/09-detail.js"></script>
+<script src="js/10-crud.js"></script>
+<script src="js/11-ics.js"></script>
+<script src="js/12-init.js"></script>
+</body>
+</html>
