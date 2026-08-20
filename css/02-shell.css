@@ -1,0 +1,28 @@
+/* ═══ BLOC 2 — STRUCTURE
+   2.1 en-tête · 2.2 onglets · 2.3 conteneur principal · 2.4 statistiques ═══ */
+
+/* 2.1 */
+header{background:var(--s1);border-bottom:1px solid var(--bd);padding:8px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.logo{font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px}
+.logo span{color:var(--ac)}
+.logo-i{width:18px;height:18px;background:var(--ac);border-radius:3px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:900}
+.hc{display:flex;gap:10px;align-items:center;font-size:11px;color:var(--t2);flex-wrap:wrap}
+.hbtn{background:var(--s2);border:1px solid var(--bd);color:var(--t2);padding:3px 10px;border-radius:4px;cursor:pointer;font-size:10px;font-weight:600;transition:.15s}
+.hbtn:hover{background:var(--s3);color:var(--tx)}
+
+/* 2.2 — onglets : calendrier + 5 filtres de priorité, avec compteur .bg */
+.tabs{display:flex;background:var(--s1);border-bottom:1px solid var(--bd);padding:0 12px;overflow-x:auto;gap:1px}
+.tab{padding:7px 11px;cursor:pointer;border-bottom:2px solid transparent;color:var(--t2);font-weight:500;font-size:11px;white-space:nowrap;transition:.15s;user-select:none}
+.tab:hover{color:var(--tx)}
+.tab.active{color:var(--tx);border-bottom-color:var(--ac)}
+.tab .bg{background:var(--s2);padding:1px 5px;border-radius:6px;font-size:9px;margin-left:3px;font-weight:700}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;vertical-align:middle}
+
+/* 2.3 — padding-bottom : réserve la place de la barre d'ajout fixée en bas */
+.main{max-width:1100px;margin:0 auto;padding:14px 10px 80px}
+
+/* 2.4 */
+.stats{display:flex;gap:3px;margin-bottom:10px;flex-wrap:wrap}
+.st{background:var(--s1);border:1px solid var(--bd);border-radius:var(--ra);padding:6px 4px;text-align:center;flex:1;min-width:45px;box-shadow:var(--sh)}
+.st .n{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+.st .l{font-size:7px;color:var(--t2);text-transform:uppercase;letter-spacing:.8px;font-weight:600}
