@@ -202,3 +202,16 @@ file into one document: download it, double-click it, it works offline.
 - ❌ Keeping a stale `_i` index across an async gap: always re-render right after mutating `tasks`.
 - ❌ Injecting user text without `esc()`.
 - ❌ Editing `standalone/index.html` instead of the sources.
+
+
+
+
+
+
+mkdir time-manager-calendar && cd time-manager-calendar
+# créer les fichiers des parties 1 à 4, plus build.js et le workflow
+node build.js                       # génère standalone/index.html
+git init && git add . && git commit -m "feat: Time Manager (Calendar), modular blocks 1-20"
+gh repo create time-manager-calendar --public --source=. --push \
+  --description "Time Manager (Calendar) is a deadline-driven planner: add missions with a due date and a category, and their priority escalates automatically from green to black as time runs out, with a live countdown and your free-time slots on a week/day/month view. No build, no server, .ics import/export."
+
