@@ -1,0 +1,31 @@
+/* ═══ BLOC 7 — MODALES & RESPONSIVE
+   7.1 surcouche · 7.2 boîte · 7.3 modale d'édition
+   7.4 modale de détail · 7.5 responsive ═══ */
+
+/* 7.1 — .show bascule display:none → flex */
+.mbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;justify-content:center;align-items:center}
+.mbg.show{display:flex}
+
+/* 7.2 */
+.modal{background:var(--s1);border:1px solid var(--bd);border-radius:8px;padding:14px;width:90%;max-width:400px;box-shadow:0 8px 32px rgba(0,0,0,.4);max-height:90vh;overflow-y:auto}
+.modal h2{font-size:13px;margin-bottom:8px;font-weight:700}
+
+/* 7.3 */
+.mg{display:grid;gap:5px;margin-bottom:6px}
+.mf{display:flex;justify-content:flex-end;gap:4px;margin-top:8px}
+
+/* 7.4 */
+.det-title{font-size:16px;font-weight:800;margin-bottom:6px}
+.det-row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--bd);font-size:11px}
+.det-label{color:var(--t2);font-weight:600}
+.det-actions{display:flex;gap:3px;flex-wrap:wrap;margin-top:10px}
+
+/* 7.5 — sous 640px : statistiques compactées, formulaires en colonne */
+@media(max-width:640px){
+  .stats{gap:1px}
+  .st{padding:4px 1px}
+  .st .n{font-size:14px}
+  .add-row{flex-direction:column}
+  .add-row>*{width:100%}
+  .tk-right{flex-direction:column;gap:2px}
+}
